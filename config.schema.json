@@ -1,0 +1,68 @@
+{
+
+    "message-config":{
+        "delimeter": {
+            "pattern":"string",
+            "count":"number?=1"
+        },
+        "supported-message-types": {
+            "types": "list(string)",
+            "check": "boolean?=true"
+        },
+        "messages": {
+
+            "<message-type-1>" : {
+                "execute": "boolean?=true",
+                "filter":"string",
+                "message-identifier-tag": "string",
+                "configuration": {
+                    "identifier-path": "list(string)",
+                    "wrap-attributes" : {
+                        "execute": "boolean?=true",
+                        "attributes" : [
+            
+                            {
+                                "name":"string",
+                                "parent":"string",
+                                "terminator":"string",
+                                "wrapper":"string",
+                                "wrapper-left":"string?if wrapper is present",
+                                "wrapper-right":"string?if wrapper is present",
+								"change-attr-name-to":"string?"
+                            }
+                            
+                        ]
+                    },
+                    "wrap-root-element-with":"string?"
+                }
+                
+            },
+
+            "<message-type-2>": {
+                "execute":"boolean?=true",
+                "has-similar-config-to":"<message-type-1>",
+                "configuration": "{}?if has-similar-config-to is present",
+                "filter":"string?if has-similar-config-to is present"
+            }
+        }
+    },
+    "terminologies":{
+        "?" : "key is optional",
+        "=" : "key has a default value"
+    },
+    "python-version":"3.12.0",
+    "python-pip-requirements": [
+        "lxml",
+        "bs4"
+    ],
+    "optional-keys" : [
+        "message-config.supported-message-types.check : [type: boolean, default:true]",
+        "message-config.messages.[<MESSAGE-TYPE>].execute : [type: boolean, default:true]",
+        "message-config.messages.[<MESSAGE-TYPE>].configuration.wrap-attributes : [type: {'execute': boolean , 'attributes': [], 'wrap-root-element-with' :string }]",
+        "message-config.messages.[<MESSAGE-TYPE>].configuration.wrap-attributes.execute : [type: boolean,default:true]",
+        "message-config.messages.[<MESSAGE-TYPE>].configuration.wrap-attributes.attributes[].wrapper-left : [type: string]",
+        "message-config.messages.[<MESSAGE-TYPE>].configuration.wrap-attributes.attributes[].wrapper-right : [type: string]",
+		"message-config.messages.[<MESSAGE-TYPE>].configuration.wrap-attributes.attributes[].change-attr-name-to : [type: string]",
+        "message-config.messages.[<MESSAGE-TYPE>].configuration.wrap-root-element-with: [type: string]"
+    ]
+}

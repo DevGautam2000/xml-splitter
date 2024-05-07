@@ -1,0 +1,155 @@
+{
+
+    "message-config":{
+        "delimeter": {
+            "pattern":"*",
+            "count":10
+        },
+        "supported-message-types": {
+            "types":["pacs.009","camt.058","STL01"],
+            "check":false
+        },
+        "messages": {
+
+            "pacs.009" : {
+                "message-identifier-tag": "MsgDefIdr",
+                "execute": true,
+                "filter":"encoding=\"UTF-8\"?>",
+                "configuration": {
+                    "identifier-path": [
+                        "Envelope/Document/FICdtTrf/CdtTrfTxInf/PmtId/InstrId"
+                    ],
+                    "wrap-attributes" : {
+                        "execute":true,
+                        "attributes" : [
+            
+                            {
+                                "name":"xsi:schemaLocation",
+                                "parent":"Envelope",
+                                "terminator": ">",
+                                "wrapper":"\"",
+                                "change-attr-name-to":"xmlns:xsi:schemaLocation"
+                            }
+                            
+                        ]
+                    },
+                    "wrap-root-element-with":"root"
+                }
+                
+            },
+
+            "camt.056": {
+                "filter":"encoding=\"UTF-8\"?>",
+                "message-identifier-tag": "MsgDefIdr",
+                "configuration": {
+                    "identifier-path": [
+                        "Envelope/Document/FIToFIPmtCxlReq/Undrlyg/TxInf/Case/Id"
+                    ],
+                    "wrap-attributes" : {
+                        "execute":true,
+                        "attributes" : [
+            
+                            {
+                                "name":"xsi:schemaLocation",
+                                "parent":"Envelope",
+                                "terminator": ">",
+                                "wrapper":"\"",
+                                "change-attr-name-to":"xmlns:xsi:schemaLocation"
+                            }
+                            
+                        ]
+                    },
+                    "wrap-root-element-with":"root"
+                }
+            },
+            "camt.057": {
+                "filter":"encoding=\"UTF-8\"?>",
+                "message-identifier-tag": "MsgDefIdr",
+                "configuration": {
+                    "identifier-path": [
+                        "Envelope/Document/NtfctnToRcv/GrpHdr/MsgId"
+                    ],
+                    "wrap-attributes" : {
+                        "execute":true,
+                        "attributes" : [
+            
+                            {
+                                "name":"xsi:schemaLocation",
+                                "parent":"Envelope",
+                                "terminator": ">",
+                                "wrapper":"\"",
+                                "change-attr-name-to":"xmlns:xsi:schemaLocation"
+                            }
+                            
+                        ]
+                    },
+                    "wrap-root-element-with":"root"
+                }
+            },
+            "camt.058": {
+                "filter":"encoding=\"UTF-8\"?>",
+                "message-identifier-tag": "MsgDefIdr",
+                "configuration": {
+                    "identifier-path": [
+                        "Envelope/Document/NtfctnToRcvCxlAdvc/GrpHdr/MsgId"
+                    ],
+                    "wrap-attributes" : {
+                        "execute":true,
+                        "attributes" : [
+            
+                            {
+                                "name":"xsi:schemaLocation",
+                                "parent":"Envelope",
+                                "terminator": ">",
+                                "wrapper":"\"",
+                                "change-attr-name-to":"xmlns:xsi:schemaLocation"
+                            }
+                            
+                        ]
+                    },
+                    "wrap-root-element-with":"root"
+                }
+            },
+
+            "STL01" : {
+                "execute": true,
+                "message-identifier-tag": "MessageType",
+                "filter": "<!DOCTYPE Message SYSTEM \"STL01.dtd\">",
+                "configuration": {
+                    "identifier-path": "CreditorAgentInfo1",
+                    "wrap-attributes" : {
+                        "execute":true,
+                        "attributes" : [
+            
+                            {
+                                "name":"xsi:schemaLocation",
+                                "parent":"Envelope",
+                                "terminator": ">",
+                                "wrapper":"\"",
+                                "change-attr-name-to":"xmlns:xsi:schemaLocation"
+                            }
+                            
+                        ]
+                    },
+                    "wrap-root-element-with":"body"
+                }
+                
+            }
+        }
+    },
+    "python-version":"3.12.0",
+    "python-pip-requirements": [
+        "lxml",
+        "bs4"
+    ],
+    "optional-keys" : [
+        "message-config.supported-message-types.check : [type: boolean, default:true]",
+        "message-config.messages.[<MESSAGE-TYPE>].execute : [type: boolean, default:true]",
+        "message-config.messages.[<MESSAGE-TYPE>].configuration.wrap-attributes : [type: {'execute': boolean , 'attributes': [], 'wrap-root-element-with' :string }]",
+        "message-config.messages.[<MESSAGE-TYPE>].configuration.wrap-attributes.execute : [type: boolean,default:true]",
+        "message-config.messages.[<MESSAGE-TYPE>].configuration.wrap-attributes.attributes[].wrapper-left : [type: string]",
+        "message-config.messages.[<MESSAGE-TYPE>].configuration.wrap-attributes.attributes[].wrapper-right : [type: string]",
+		"message-config.messages.[<MESSAGE-TYPE>].configuration.wrap-attributes.attributes[].change-attr-name-to : [type: string]",
+        "message-config.messages.[<MESSAGE-TYPE>].configuration.wrap-root-element-with: [type: string]"
+    ]
+}

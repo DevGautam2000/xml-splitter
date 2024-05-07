@@ -1,0 +1,12 @@
+*{
+    font-family: 'Times New Roman', Times, serif;
+}
+pre{
+    overflow:auto;
+    max-width: 30vw;
+}
+.diffactual{
+    color: blue;
+    background-color:#BFE1FF;
+}
+
